@@ -6,6 +6,7 @@ import plotly.express as px
 
 import yfinance as yf
 
+
 def get_stock(stock_name):
     """
     Gets stock dataframe
@@ -20,19 +21,22 @@ def get_stock(stock_name):
     df_stock = yf.Ticker(stock_name).history(period="max")
     return df_stock
 
-df = get_stock('MSFT').reset_index()
 
-line_graph = px.line(data_frame=df, x=df['Date'], y=df['Close'], title='MSFT Price')
+df = get_stock("MSFT").reset_index()
 
-app = dash.Dash(__name__)
+line_graph = px.line(data_frame=df, x=df["Date"], y=df["Close"], title="MSFT Price")
+
+application = app = dash.Dash(__name__)
 
 application = app.server
 
-app.layout = html.Div([
-    dcc.Graph(id="line-chart", figure=line_graph),
-])
+app.layout = html.Div(
+    [
+        dcc.Graph(id="line-chart", figure=line_graph),
+    ]
+)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Beanstalk expects it to be running on 8080.
-    application.run(debug=True, port=8080)
+    application.run_server(debug=True, port=8080)

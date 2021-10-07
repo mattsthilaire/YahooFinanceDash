@@ -1,0 +1,9 @@
+dash
+pandas
+yfinance
+pylint
+pytest
+click
+black
+pytest-cov
+awsebcli
